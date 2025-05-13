@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 function TodaysWeather({ todayCityWeather }) {
   const [todaysWeather, setTodaysWeather] = useState(null);
   const [isCelsius, setIsCelsius] = useState(true);
+  const apiUrl = import.meta.env.VITE_OPEN_WEATHER_KEY;
 
   useEffect(() => {
     const getData = async () => {
       try {
         const locationRes = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${todayCityWeather}&units=imperial&appid=32307c5321e5f1ef27bddf4e6d12e285`
+          `https://api.openweathermap.org/data/2.5/weather?q=${todayCityWeather}&units=imperial&appid=${apiUrl}`
         );
 
         const locationData = await locationRes.json();
@@ -19,7 +20,7 @@ function TodaysWeather({ todayCityWeather }) {
         const lon = locationData.coord.lon;
 
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&&appid=32307c5321e5f1ef27bddf4e6d12e285`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&&appid=${apiUrl}`
         );
 
         const data = await res.json();

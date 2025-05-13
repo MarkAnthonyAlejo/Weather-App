@@ -5,6 +5,8 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 function SearchBar({ setCity }) {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
+  const apiUrl = import.meta.env.VITE_OPEN_WEATHER_KEY;
+  console.log(apiUrl)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ function SearchBar({ setCity }) {
 
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=32307c5321e5f1ef27bddf4e6d12e285`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiUrl}`
       );
 
       if (!res.ok) {

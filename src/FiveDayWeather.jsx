@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function FiveDayWeather({ city }) {
   const [weather, setWeather] = useState(null);
   const [unit,setUnit] = useState("C");
+  const apiUrl = import.meta.env.VITE_OPEN_WEATHER_KEY;
 
   useEffect(() => {
     if (!city) return;
@@ -10,7 +11,7 @@ function FiveDayWeather({ city }) {
     const fetchWeather = async () => {
       try {
         const locationRes = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=32307c5321e5f1ef27bddf4e6d12e285`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiUrl}`
         );
 
         const locationData = await locationRes.json();
@@ -21,7 +22,7 @@ function FiveDayWeather({ city }) {
         const lon = locationData.coord.lon;
 
         const weatherRes = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=32307c5321e5f1ef27bddf4e6d12e285`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiUrl}`
         );
 
         const weatherData = await weatherRes.json();

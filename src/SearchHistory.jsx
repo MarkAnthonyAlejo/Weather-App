@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 function SearchHistory({ setCity }) {
   const [searchHistory, setSearchHistory] = useState([]);
+  const apiUrl = import.meta.env.VITE_OPEN_WEATHER_KEY;
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("searchHistory")) || [];
@@ -19,7 +20,7 @@ function SearchHistory({ setCity }) {
       if (e.detail && typeof e.detail === "string") {
         try {
           const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${e.detail}&appid=32307c5321e5f1ef27bddf4e6d12e285`
+            `https://api.openweathermap.org/data/2.5/weather?q=${e.detail}&appid=${apiUrl}`
           );
           if (!res.ok) return;
           addToHistory(e.detail);
