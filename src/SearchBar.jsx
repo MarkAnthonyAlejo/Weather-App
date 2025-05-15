@@ -10,7 +10,7 @@ function SearchBar({ setCity }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const city = input.trim().toLowerCase().replace(/\s+/g, "");
+    const city = input.trim()
 
     if (!city) return;
 
@@ -42,7 +42,7 @@ function SearchBar({ setCity }) {
       );
       setInput("");
     }
-
+   
     const event = new CustomEvent("add-cityHistory", { detail: city });
     window.dispatchEvent(event);
 

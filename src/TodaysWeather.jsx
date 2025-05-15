@@ -7,21 +7,24 @@ function TodaysWeather({ todayCityWeather }) {
 
   useEffect(() => {
     const getData = async () => {
+      if(!todayCityWeather) return;
+
       try {
         const locationRes = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${todayCityWeather}&units=imperial&appid=${apiUrl}`
         );
 
         const locationData = await locationRes.json();
-
+        
         if (!locationData) return "No Data Found";
-
+        
         const lat = locationData.coord.lat;
         const lon = locationData.coord.lon;
 
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&&appid=${apiUrl}`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiUrl}`
         );
+
 
         const data = await res.json();
         const cityName = data.name;
@@ -39,7 +42,7 @@ function TodaysWeather({ todayCityWeather }) {
           curDesc: todaysDesc,
           curIcon: todaysWeatherIcon,
         });
-
+        
         console.log("Data ->", data);
       } catch (err) {
         console.error("Error fetching weather:", err);
